@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <h2>Sign Up</h2>
+                <p>Create Mentor Campus account</p>
+            </div>
+
+            <form class="signup-form" id="signupForm" novalidate>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="name" name="name" required autocomplete="name">
+                        <label for="name">Name</label>
+                        <span class="focus-border"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" required autocomplete="email">
+                        <label for="email">Email</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <div class="input-wrapper password wrapper">
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password</label>
+                        <button type button class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <span class="eye-icon"></span>
+                        </button>
+                        <span class="focus-border"></span>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper repeat password wrapper">
+                        <input type="password" id="repeat-password" name="repeat-password" required>
+                        <label for="repeat-password">Repeat password</label>
+                        <button type button class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <span class="focus-border"></span>
+                        </button>
+                    </div>
+                    <span class="error-message" id="repeatpasswordError"></span>
+                </div>
+
+                <div class="form-option">
+                    <label class="remember-wrapper">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span class="checkbox-label">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="signup-btn btn">
+                    <span class="btn-text">Sign Up</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>or create account with</span>
+            </div>
+
+            <div class="social-signup">
+                <button type="button" class="social-btn google-btn">
+                    <span class="sosial-icon googlr-icon"></span>
+                    Google
+                </button>
+                <button type="button" class="social-btn github-btn">
+                    <span class="social-icon github-icon"></span>
+                    Github
+                </button>
+                <button type="button" class="social-btn linkedin-btn">
+                    <span class="social-icon linkedin-icon"></span>
+                    LinkedIn
+                </button>
+            </div>
+
+            <div class="success-message" id="success-message">
+                <div class="success-icon">✓</div>
+                <h3>Sign Up Successful!</h3>
+                <p>Redirecting to your dashboard...</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
