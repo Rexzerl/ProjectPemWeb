@@ -28,7 +28,7 @@
                     <div class="input-wrapper password wrapper">
                         <input type="password" id="password" name="password" required autocomplete="current-password">
                         <label for="password">password</label>
-                        <button type button class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
                             <span class="eye-icon"></span>
                         </button>
                         <span class="focus-border"></span>
@@ -79,6 +79,14 @@
             </div>
         </div>
     </div>
-
+    <div id="errorPopup" class="popup-overlay">
+    <div class="popup-box">
+        <h3>Terjadi Kesalahan</h3>
+        <p id="popupMessage"></p>
+        <button id="closePopup">OK</button>
+    </div>
+</div>
+<script src="script.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
 </body>
 </html>
