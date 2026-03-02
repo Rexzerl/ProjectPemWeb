@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Masuk</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Sign Up</title>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h2>Sign In</h2>
-                <p>continue to your account MentorCampus</p>
-            </div>    
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <h2>Sign Up</h2>
+                <p>Create Mentor Campus account</p>
+            </div>
 
-            <form class="login-form" id="loginForm" novalidate>
+            <form class="signup-form" id="signupForm" novalidate>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="name" name="name" required autocomplete="name">
+                        <label for="name">Name</label>
+                        <span class="focus-border"></span>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="input-wrapper">
                         <input type="email" id="email" name="email" required autocomplete="email">
@@ -23,12 +30,12 @@
                     </div>
                     <span class="error-message" id="emailError"></span>
                 </div>
-
+                
                 <div class="form-group">
                     <div class="input-wrapper password wrapper">
-                        <input type="password" id="password" name="password" required autocomplete="current-password">
-                        <label for="password">password</label>
-                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password</label>
+                        <button type button class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
                             <span class="eye-icon"></span>
                         </button>
                         <span class="focus-border"></span>
@@ -36,33 +43,43 @@
                     <span class="error-message" id="passwordError"></span>
                 </div>
 
+                <div class="form-group">
+                    <div class="input-wrapper repeat password wrapper">
+                        <input type="password" id="repeat-password" name="repeat-password" required>
+                        <label for="repeat-password">Repeat password</label>
+                        <button type button class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <span class="focus-border"></span>
+                        </button>
+                    </div>
+                    <span class="error-message" id="repeatpasswordError"></span>
+                </div>
+
                 <div class="form-option">
                     <label class="remember-wrapper">
                         <input type="checkbox" id="remember" name="remember">
                         <span class="checkbox-label">
-                        <span class="checkmark"></span>
-                        Remember me
+                            <span class="checkmark"></span>
+                            Remember me
                         </span>
                     </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
                 </div>
 
-                <button type="submit" class="login-btn btn">
-                    <span class="btn-text">Sign In</span>
+                <button type="submit" class="signup-btn btn">
+                    <span class="btn-text">Sign Up</span>
                     <span class="btn-loader"></span>
                 </button>
             </form>
 
             <div class="divider">
-                <span>or continue with</span>
+                <span>or create account with</span>
             </div>
 
-            <div class="social-login">
+            <div class="social-signup">
                 <button type="button" class="social-btn google-btn">
-                    <span class="sosial-icon google-icon"></span>
+                    <span class="sosial-icon googlr-icon"></span>
                     Google
                 </button>
-                <button type="button" class="social-btn github-btn"> 
+                <button type="button" class="social-btn github-btn">
                     <span class="social-icon github-icon"></span>
                     Github
                 </button>
@@ -72,25 +89,13 @@
                 </button>
             </div>
 
-            <div class="signup-link">
-                <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-            </div>
-
             <div class="success-message" id="success-message">
                 <div class="success-icon">✓</div>
-                <h3>Login Successful!</h3>
+                <h3>Sign Up Successful!</h3>
                 <p>Redirecting to your dashboard...</p>
             </div>
         </div>
     </div>
-    <div id="errorPopup" class="popup-overlay">
-    <div class="popup-box">
-        <h3>Terjadi Kesalahan</h3>
-        <p id="popupMessage"></p>
-        <button id="closePopup">OK</button>
-    </div>
-</div>
-<script src="script.js"></script>
-<link rel="stylesheet" type="text/css" href="styles.css">
+
 </body>
 </html>
