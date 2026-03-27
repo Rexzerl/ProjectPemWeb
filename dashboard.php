@@ -14,31 +14,46 @@ if (!isset($_SESSION['login'])) {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - MentorCampus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page - MentorCampus</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-50 min-h-screen flex items-center justify-center">
-
-    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md text-center">
-        <div class="mb-4">
-            <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto">
-                <span class="text-3xl">👤</span>
+<body class="antialiased">
+    <div x-data="{ open: false}" class="">
+        <div class="">
+            <div class="">
+               <div class="">
+                <a href="#" class="">Mentor Campus</a>
+                <svg class>
+                    <path>
+                </svg>
+               </div>
+               <button class="">
+                    <svg class="">
+                        <path></path>
+                        <path></path>
+                    </svg>
+               </button> 
             </div>
-        </div>
-        
-        <h1 class="text-2xl font-bold text-gray-800">Selamat Datang!</h1>
-        <p class="text-gray-600 mt-2">Halo, <span class="font-bold text-blue-600"><?php echo $_SESSION['nama']; ?></span></p>
-        
-        <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p class="text-sm text-green-700">✅ Login Berhasil menggunakan Session</p>
-        </div>
-
-        <div class="mt-8">
-            <a href="logout.php" class="inline-block w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl transition duration-300">
-                Keluar (Logout)
-            </a>
+            <nav class="">
+                <a class="" href="#">Home</a>
+                <a class="" href="#">Profile Mentor</a>
+                <a class="" href="#">Booking Mentor</a>
+                <a class="" href="#">Module</a>
+                <a class="" href="#">About Us</a>
+                <a class="" href="#">Login</a>
+                <a class="" href="#">Sign Up</a>
+            </nav>
         </div>
     </div>
-
+    <footer class="">
+        <div class="">
+            <div>
+                <div>
+                    <h1></h1>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
