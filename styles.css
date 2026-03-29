@@ -314,3 +314,12 @@ input:focus {
     z-index: 2;
 }
 
+.eye-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url("https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/outline/eye.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
