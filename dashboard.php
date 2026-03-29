@@ -1,161 +1,159 @@
 <?php
-// 1. Harus ada session_start di baris paling atas!
 session_start();
 
-// 2. Cek apakah session login sudah ada
 if (!isset($_SESSION['login'])) {
-    // Jika belum login, paksa balik ke halaman login
-    header("Location: login.php");
+   header("Location: index.php");
     exit;
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page - MentorCampus</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MentorKampus Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Lexend', sans-serif;
+}
+</style>
 </head>
-<body class="antialiased">
-<!--navigasi atas-->
-    <div x-data="{ open: false}" class="">
-        <div class="">
-            <div class="">
-               <div class="">
-                <a href="#" class="">Mentor Campus</a>
-                <svg class>
-                    <path>
-                </svg>
-               </div>
-               <button class="">
-                    <svg class="">
-                        <path></path>
-                        <path></path>
-                    </svg>
-               </button> 
-            </div>
-            <nav class="">
-                <a class="" href="#">Home</a>
-                <a class="" href="#">Serach Mentor</a>
-                <a class="" href="#">How</a>
-                <a class="" href="#">Campus</a>
-                <a class="" href="#">About Us</a>
-                <a class="" href="#">Login</a>
-                <a class="" href="#">Sign Up</a>
-            </nav>
+
+<body class="bg-white overflow-x-hidden">
+
+<!-- HERO -->
+<section class="relative bg-[#B6DCFF] overflow-hidden pb-32">
+
+    <!-- NAVBAR -->
+    <div class="flex justify-between items-center px-12 py-6 relative z-20">
+        <div class="flex items-center gap-2">
+            <img src="image/logo.png" class="w-[200px]">
         </div>
+
+        <a href="logout.php" class="bg-[#175BAF] text-white px-5 py-2 rounded-full text-sm shadow">
+            Logout
+        </a>
     </div>
-    <!--Awalan-->
-    <div class="">
-        <div class="">
-    <!--bagian kiri, lihat contoh yg kata studying-->
-            <div class="">
-                <h1 class="">
-                    <span class="">Cari</span> Mentor dari Kampusmu Sendiri
-                </h1>
-                <p class="">Mentor Campus adalah platform belajar peer to peer antar mahasiswa. Temukan teman belajar 
-                    untuk matkul sulit, persiapan UTS/UAS, atau sekedar diskusi</p>
-                <div class="">
-                    <button class="">
-                        Mulai Belajar
-                    </button>
-                    <div class="">
-                        <button class="">
-                            <svg class="">
-                            </svg>
-                        </button>
-                        <span class="">Cari sekarang</span>
-                    </div>
-                </div>
-            </div>
-    <!--bagian kanan mungkin isi gambar saja-->
+
+    <!-- DECOR -->
+    <img src="image/garislingkaran.png" class="absolute top-20 right-10 w-[300px] opacity-70">
+    <img src="image/bintiklingkaran.png" class="absolute top-40 right-[500px] w-[200px] opacity-70">
+
+    <!-- CONTENT -->
+    <div class="flex items-center justify-between px-12 pt-10">
+
+        <!-- LEFT -->
+        <div class="max-w-xl z-10">
+
+            <p class="text-[#2F5789] text-sm mb-4">
+                Welcome back, <?php echo $_SESSION['nama']; ?> 👋
+            </p>
+
+            <h1 class="text-[52px] font-bold text-white leading-tight">
+                FIND THE RIGHT <br> MENTOR FROM YOUR <br> CAMPUS
+            </h1>
+
+            <button class="mt-8 bg-[#175BAF] text-white px-8 py-3 rounded-full shadow-md hover:scale-105 transition">
+                Masuk
+            </button>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="relative w-[480px] h-[520px] flex items-end justify-center overflow-hidden">
+            <div class="absolute top-10 left-0 bg-white px-4 py-2 rounded-xl shadow flex items-center gap-2 z-20">
+    <img src="image/mahasiswa.png" class="w-10">
+    <span class="text-sm text-[#2F5789]">Dari mahasiswa<br>untuk mahasiswa</span>
+</div>
+            <div class="absolute top-40 right-0 bg-white px-4 py-2 rounded-xl shadow flex items-center gap-2 z-20">
+    <img src="image/kalender.png" class="w-8">
+    <span class="text-sm text-[#2F5789]">Fleksibilitas waktu<br>dan lokasi</span>
+</div>
+
+         <div class="absolute bottom-20 left-10 bg-white px-5 py-3 rounded-xl shadow z-20">
+    <p class="text-sm text-[#2F5789]">Harga fleksibel dan<br>terjangkau</p>
+</div>
+
+
+            <!-- GAMBAR UTAMA -->
+            <img src="image/dashboardcewe.png" 
+                 class="w-[420px] relative z-10 object-cover">
+
+
         </div>
     </div>
 
-    <!--kontainer trusted-->
-    <div>
-        <!--trusted by-->
-        <div class="">
-            <h1 class="">15+ Kampus Terdaftar, 500+ Mentor Aktif, dan 2.000+ Jam Belajar Terlampaui</h1>
-        </div>
-    </div>
-    <!--untuk memulai mentor atau mahasiswa-->
-    <div class="">
-        <div class="">
-            <div class="">
-                <img class="">
-                <div class="">
-                    <div class="">
-                        <h1 class="">Untuk Mentor</h1>
-                        <button class="">Mulai kelas hari ini</button>
-                    </div>
-                </div>
-            </div>
-            <div class="">
-                <img class="">
-                <div class="">
-                    <div class="">
-                        <h1 class="">Untuk Mahasiswa</h1>
-                        <button class="">Masukkan kode</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+    <!-- CURVE PUTIH -->
+    <div class="absolute bottom-0 left-0 w-full h-40 bg-white rounded-t-[100px]"></div>
 
-    <!--testimoni-->
-    <div class="">
-			<div class="">
-				<div class="">
-					<span class=""></span>
-					<h1 class="">TESTIMONI</h1>
-				</div>
-				<h1 class="">Apa yang mereka katakan?</h1>
-				<p class="">Saya lulus mata kuliah tersulit berkat platform ini.</p>
-				<p class="">Bagaimana dengan kamu? kirimkan tanggapanmu</p>
-				<button class="">
-					<span>Tulis tanggapan</span>
-					<div class="">
-						<svg class="">
-						</svg>
-					</div>
-				</button>
-			</div>
-			<div class="">
-				<img class="" src="">
-			</div>
-		</div>
+</section>
 
-    <!--footer-->
-    <footer class="">
-        <div class="max-w-lg mx-auto">
-            <div class="">
-                <div class="relative">
-                    <h1 class="">Mentor Campus</h1>
-                    <svg class="">
-                    </svg>
-                </div>
-                <span class="">Satu Kampus, Saling Bantu</span>
-            </div>
-            <div class="">
-                <label class="">Subscribe to get our newsletter</label> <!--Iki nanti ubah en slogan sing cocok ya, ini cuma contoh-->
-            </div>
-            <div class="">
-                <a href="" class="">FAQ</a>
-                <a href="" class="">Privacy</a>
-                <a href="" class="">Terms & Conditions</a>
-            </div>
-            <div class="">
-                <p class="">&copy; 2026 MentorKampus. Seluruh Hak Cipta Dilindungi.</p>
-                <div class="">
-                    <p>Dibuat oleh Kelompok <span class="font-semibold">13</span></p>
-                    <p>Information System 2024 <span class="font-semibold">UPNVJT</span></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+<!-- ABOUT -->
+<section class="text-center px-10 py-20">
+
+    <h2 class="text-4xl font-bold mb-6">
+        What is Mentor Kampus?
+    </h2>
+
+    <p class="text-[#2F5789] max-w-3xl mx-auto text-lg leading-relaxed">
+        MentorKampus is a peer-to-peer learning platform where students can find affordable mentors from fellow students. 
+        This creates a more accessible, flexible, and collaborative learning environment.
+    </p>
+
+</section>
+
+<!-- FEATURES -->
+<section class="flex justify-center gap-12 px-10 pb-24 flex-wrap">
+
+    <!-- CARD 1 -->
+<div class="bg-white shadow-lg rounded-2xl p-8 w-72 text-center relative">
+
+    <!-- BULAT BIRU -->
+    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 
+                w-16 h-16 bg-[#B6DCFF] rounded-full flex items-center justify-center shadow">
+        <img src="image/iconmurah.png" class="w-8">
+    </div>
+
+    <h3 class="font-semibold text-lg mt-10 mb-2">Affordable Learning</h3>
+    <p class="text-[#717378] text-sm leading-relaxed">
+        MentorKampus menyediakan akses belajar dengan harga terjangkau dari sesama mahasiswa.
+    </p>
+</div>
+
+    <!-- CARD 2 -->
+<div class="bg-white shadow-lg rounded-2xl p-8 w-72 text-center relative">
+
+    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 
+                w-16 h-16 bg-[#B6DCFF] rounded-full flex items-center justify-center shadow">
+        <img src="image/iconpeer.png" class="w-8">
+    </div>
+
+    <h3 class="font-semibold text-lg mt-10 mb-2">Peer-to-Peer Experience</h3>
+    <p class="text-[#717378] text-sm leading-relaxed">
+        Belajar bersama sesama mahasiswa membuat proses belajar lebih mudah dipahami.
+    </p>
+</div>
+
+  <!-- CARD 3 -->
+<div class="bg-white shadow-lg rounded-2xl p-8 w-72 text-center relative">
+
+    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 
+                w-16 h-16 bg-[#B6DCFF] rounded-full flex items-center justify-center shadow">
+        <img src="image/iconfleksibilitas.png" class="w-8">
+    </div>
+
+    <h3 class="font-semibold text-lg mt-10 mb-2">Flexible & Accessible</h3>
+    <p class="text-[#717378] text-sm leading-relaxed">
+        Belajar kapan saja sesuai kebutuhan dengan pilihan mentor yang beragam.
+    </p>
+</div>
+
+</section>
+
 </body>
 </html>

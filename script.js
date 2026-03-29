@@ -1,11 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Hanya sisihkan fitur interaksi UI
     const toggleButtons = document.querySelectorAll(".password-toggle");
+
     toggleButtons.forEach(button => {
         button.addEventListener("click", function () {
             const input = this.parentElement.querySelector("input");
+
             if (input) {
-                input.type = input.type === "password" ? "text" : "password";
+                if (input.type === "password") {
+                    input.type = "text";
+                    this.querySelector(".eye-icon").style.backgroundImage =
+                        "url('https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/outline/eye-off.svg')";
+                } else {
+                    input.type = "password";
+                    this.querySelector(".eye-icon").style.backgroundImage =
+                        "url('https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/outline/eye.svg')";
+                }
             }
         });
     });

@@ -1,11 +1,12 @@
 <?php
 session_start();
+
 session_unset();
 session_destroy();
 
-// Hapus Cookie
-setcookie('user_email', '', time() - 3600, "/");
+setcookie('user_id', '', time() - 3600, "/");
+setcookie('user_key', '', time() - 3600, "/");
 
-header("Location: login.php");
+header("Location: index.php"); // atau login.php
 exit;
 ?>

@@ -1,10 +1,9 @@
 <?php
-$host = "localhost:3308";
+$host = "localhost:3306";
 $user = "root";
-$pass = "root";
-$db   = "mentor_campus";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
+$pass = ""; 
+$db   = "mentor_campus"; 
+$conn = mysqli_connect($host, $user, $pass, $db, 3306);
 
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
