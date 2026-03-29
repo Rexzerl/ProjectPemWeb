@@ -18,7 +18,7 @@ if (isset($_POST['signup'])) {
             $query = "INSERT INTO users (nama, email, password) VALUES ('$nama', '$email', '$password_safe')";
             
             if (mysqli_query($conn, $query)) {
-                echo "<script>alert('Registrasi Berhasil! Silahkan Login.'); window.location.href='login.php';</script>";
+                echo "<script>alert('Registrasi Berhasil! Silahkan Login.'); window.location.href='index.php';</script>";
             }
         } else {
             echo "<script>alert('Konfirmasi password tidak sesuai!');</script>";
