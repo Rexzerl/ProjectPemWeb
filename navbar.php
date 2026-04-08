@@ -61,17 +61,23 @@ $initial = isset($_SESSION['nama']) ? strtoupper(substr($_SESSION['nama'], 0, 1)
     <div class="flex items-center gap-4">
 
         <!-- BUTTON BECOME MENTOR -->
-        <a href="mentor-register.php" 
-           class="bg-[#175BAF] text-white px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
-           Become Mentor
-        </a>
+    <a href="mentor-register.php" 
+       class="bg-[#175BAF] text-white px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
+       Become Mentor
+    </a>
 
-        <!-- AVATAR -->
-        <div class="w-9 h-9 rounded-full bg-[#B6DCFF] flex items-center justify-center">
-            <span class="text-sm font-semibold text-[#175BAF]">
-                <?= $initial; ?>
-            </span>
-        </div>
+    <!-- LOGOUT -->
+    <a href="logout.php" 
+       class="bg-[#B6DCFF] text-[#175BAF] px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
+       Logout
+    </a>
+
+    <!-- AVATAR -->
+    <div class="w-9 h-9 rounded-full bg-[#B6DCFF] flex items-center justify-center">
+        <span class="text-sm font-semibold text-[#175BAF]">
+            <?= $initial; ?>
+        </span>
+    </div>
 
     </div>
 
