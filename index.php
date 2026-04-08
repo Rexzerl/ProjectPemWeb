@@ -2,19 +2,21 @@
 session_start();
 require 'config.php';
 
-// 1. Cek Cookie: Jika ada cookie, otomatis buat session
+$result = null; // inisialisasi dulu
+
 if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
     $id = $_COOKIE['user_id'];
     $key = $_COOKIE['user_key'];
 
-    $result = mysqli_query($conn, "SELECT email FROM users WHERE id = $id");
-    
+    $result = mysqli_query($conn, "SELECT nama, email FROM users WHERE id_user = $id");
+
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
+
         if ($key === hash('sha256', $row['email'])) {
             $_SESSION['login'] = true;
             $_SESSION['user_id'] = $id;
-            $_SESSION['nama'] = $row['nama'] ?? 'User';
+            $_SESSION['nama'] = $row['nama'];
         }
     }
 }
@@ -39,7 +41,7 @@ if (isset($_POST['login'])) {
         if (password_verify($password, $row['password'])) {
             // Set Session
             $_SESSION['login'] = true;
-            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['user_id'] = $row['id_user'];
             $_SESSION['nama'] = $row['nama'];
 
             // Set Cookie jika Remember Me dicentang
@@ -48,7 +50,6 @@ if (isset($_POST['login'])) {
                 setcookie('user_key', hash('sha256', $row['email']), time() + (60 * 60 * 24 * 30), "/");
             }
 
-            // Redirect menggunakan PHP header (lebih aman dari JS window.location)
             header("Location: dashboard.php");
             exit;
         } else {

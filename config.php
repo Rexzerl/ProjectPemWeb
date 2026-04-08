@@ -2,7 +2,7 @@
 $host = "localhost:3306";
 $user = "root";
 $pass = ""; 
-$db   = "mentor_campus"; 
+$db   = "mentor_kampus"; 
 $conn = mysqli_connect($host, $user, $pass, $db, 3306);
 
 if (!$conn) {
