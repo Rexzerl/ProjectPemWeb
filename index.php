@@ -26,7 +26,7 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
 if (isset($_SESSION['login'])) {
     if ($_SESSION['role'] === 'admin') header("Location: dashboard_admin.php");
     elseif ($_SESSION['role'] === 'mentor') header("Location: dashboard_mentor.php");
-    else header("Location: dashboard_student.php");
+    else header("Location: dashboard.php");
     exit;
 }
 
