@@ -9,19 +9,21 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
 }
 
 // Query Mentor (JOIN dengan profil dan status)
-$query_mentor = "SELECT u.email, m.*, k.nama_kampus, sv.nama_status_verif 
-FROM users u
-JOIN mentor_profiles m ON u.id_user = m.id_user
-LEFT JOIN kampus k ON m.id_kampus = k.id_kampus
-LEFT JOIN master_status_verifikasi sv ON m.id_status_verif = sv.id_status_verif";
+$query_mentor = "SELECT u.email, m.* FROM users u
+                 INNER JOIN mentor_profiles m ON u.id_user = m.id_user";
 $result_mentor = mysqli_query($conn, $query_mentor);
+if (!$result_mentor) {
+    die("Query Mentor Gagal: " . mysqli_error($conn));
+}
 
 // Query Student
-$query_student = "SELECT u.email, s.*, k.nama_kampus
-FROM users u
-JOIN student_profiles s ON u.id_user = s.id_user
-LEFT JOIN kampus k ON s.id_kampus = k.id_kampus";
+$query_student = "SELECT u.email, s.* FROM users u
+                  INNER JOIN student_profiles s ON u.id_user = s.id_user";
 $result_student = mysqli_query($conn, $query_student);
+if (!$result_student) {
+    die("Query Student Gagal: " . mysqli_error($conn));
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
