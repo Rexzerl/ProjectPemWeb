@@ -18,10 +18,16 @@ if (!isset($_SESSION['login'])){
         body{
             font-family: 'Lexend', sans-serif;
         }
+        body {background-color: #f8f9fa; }
+        .sidebar {min-height: 100vh; background: #003366; color: white; }
+        .sidebar a { color: white; text-decoation: none; padding: 15px; display: block; }
+        .sidebar a:hover {background: #004080; }
+        .content {padding: 20px; }
+        .card-stat {border: none; border-radius: 10px; transition: 0.3s; }
+        .card-stst:hover { transform: translateY(-5px); }
     </style>
 </head>
 <body class="bg-[#F5F7FA] pt-24">
     <?php include 'navbar.php'; ?>
-
 </body>
 </html>

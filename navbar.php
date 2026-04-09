@@ -6,8 +6,11 @@ if (session_status() === PHP_SESSION_NONE) {
 // Ambil nama file sekarang (buat menu aktif)
 $current = basename($_SERVER['PHP_SELF']);
 
-// Ambil inisial nama (biar ga error kalau belum ada session)
+// Ambil inisial nama (agar tidak error kalau belum ada session)
 $initial = isset($_SESSION['nama']) ? strtoupper(substr($_SESSION['nama'], 0, 1)) : 'U';
+
+//untuk identifikasi role (default student jika bukan mentor)
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : 'student';
 ?>
 
 <nav class="w-full bg-white shadow-sm px-10 py-4 flex items-center justify-between fixed top-0 left-0 z-50">
@@ -60,13 +63,19 @@ $initial = isset($_SESSION['nama']) ? strtoupper(substr($_SESSION['nama'], 0, 1)
     <!-- RIGHT SIDE -->
     <div class="flex items-center gap-4">
 
-        <!-- BUTTON BECOME MENTOR -->
-    <a href="mentor-register.php" 
-       class="bg-[#175BAF] text-white px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
-       Become Mentor
-    </a>
+        <?php if ($role === 'mentor'): ?>
+            <a href="mentorpage.php"
+                class="bg-[#175BAF] text-white px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
+                Kelola Mentor
+            </a>
+        <?php else: ?>
+            <a href="mentor-register.php"
+               class="bg-[#175BAF] text-white px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
+               Become Mentor
+            </a>
+        <?php endif; ?>
 
-    <!-- LOGOUT -->
+            <!-- LOGOUT -->
     <a href="logout.php" 
        class="bg-[#B6DCFF] text-[#175BAF] px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
        Logout
