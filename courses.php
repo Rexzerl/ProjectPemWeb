@@ -15,7 +15,7 @@ if (!isset($_SESSION['login'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Courses - MentorKampus</title>
+<title>Courses - MentorCampus</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -32,18 +32,14 @@ body {
 
 <?php include 'navbar.php'; ?>
 
-
-<!-- HERO -->
 <section class="relative h-[400px] overflow-hidden">
 
     <!-- GAMBAR -->
     <img src="./image/wanita-belajar.jpg" 
          class="absolute w-full h-full object-cover z-0">
 
-    <!-- OVERLAY -->
     <div class="absolute inset-0 bg-black/30 z-10"></div>
 
-    <!-- TEXT -->
     <div class="relative z-20 px-12 pt-28 text-white">
 
     <h1 class="text-3xl font-semibold mb-6">
@@ -86,18 +82,16 @@ body {
 
     <h2 class="text-xl font-semibold mb-6">Recommendation</h2>
 
-    <!-- CARD LIST -->
+    <!-- CARD -->
     <div class="space-y-6">
 
         <?php for ($i = 0; $i < 3; $i++): ?>
         <div class="bg-white rounded-xl shadow p-5 flex gap-5 items-center">
 
-            <!-- IMAGE -->
             <img src="image/wanita-belajar.jpg" class="w-40 h-28 object-cover rounded-lg">
 
-            <!-- CONTENT -->
             <div class="flex-1">
-                <p class="text-sm text-gray-500">by MentorKampus</p>
+                <p class="text-sm text-gray-500">by MentorCampus</p>
 
                 <h3 class="font-semibold text-lg">
                     Create an LMS Website With LearnPress

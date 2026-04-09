@@ -12,7 +12,7 @@ if (!isset($_SESSION['login'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us - MentorKampus</title>
+<title>About Us - MentorCampus</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -47,7 +47,7 @@ body {
         </h1>
 
         <p class="text-lg leading-relaxed mb-6">
-            MentorKampus connects students with peers who can guide, support, 
+            MentorCampus connects students with peers who can guide, support, 
             and mentor them in a more relatable and flexible way.
         </p>
 
@@ -107,7 +107,7 @@ body {
     <div class="bg-white rounded-xl p-6 shadow text-[#2F5789]">
         <h3 class="font-semibold text-lg mb-2">Affordable Mentorship</h3>
         <p class="text-sm">
-            MentorKampus provides a cost-effective alternative to traditional tutoring, 
+            MentorCampus provides a cost-effective alternative to traditional tutoring, 
             ensuring that quality education does not come at a high price.
         </p>
     </div>
@@ -130,7 +130,7 @@ body {
     </h2>
 
     <p class="max-w-2xl mx-auto text-sm">
-        MentorKampus is more than just a platform — it is a community built by students, 
+        MentorCampus is more than just a platform — it is a community built by students, 
         for students. Together, we create opportunities to learn, grow, and succeed.
     </p>
 

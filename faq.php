@@ -12,7 +12,7 @@ if (!isset($_SESSION['login'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ - MentorKampus</title>
+<title>FAQ - MentorCampus</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -35,7 +35,7 @@ body {
         Frequently Asked Questions
     </h1>
     <p class="text-gray-500">
-        Find answers to common questions about MentorKampus.
+        Find answers to common questions about MentorCampus.
     </p>
 </section>
 

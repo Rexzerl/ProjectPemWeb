@@ -12,7 +12,7 @@ if (!isset($_SESSION['login'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MentorKampus Dashboard</title>
+<title>MentorCampus Dashboard</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -31,11 +31,9 @@ body {
 <!-- HERO -->
 <section class="relative overflow-hidden pt-20 pb-20">
 
-    <!-- BACKGROUND IMAGE -->
     <img src="image/pena.jpg" 
          class="absolute inset-0 w-full h-full object-cover">
 
-    <!-- CONTENT -->
     <div class="relative z-10 flex justify-center px-6">
 
         <div class="max-w-2xl text-center">
@@ -66,11 +64,11 @@ body {
 <section class="text-center px-6 py-16 bg-[#F5F7FA]">
 
     <h2 class="text-3xl font-bold mb-4 text-[#2F5789]">
-        What is MentorKampus?
+        What is MentorCampus?
     </h2>
 
     <p class="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-        MentorKampus is a peer-to-peer learning platform where students connect 
+        MentorCampus is a peer-to-peer learning platform where students connect 
         with fellow students to gain knowledge in a more accessible, affordable, 
         and flexible way.
     </p>

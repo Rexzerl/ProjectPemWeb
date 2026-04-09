@@ -15,7 +15,7 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
 
         if ($key === hash('sha256', $row['email'])) {
             $_SESSION['login'] = true;
-            $_SESSION['user_id'] = $id;
+            $_SESSION['user_id'] = $id_user;
             $_SESSION['nama'] = $row['nama'];
         }
     }
@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
             // Set Cookie jika Remember Me dicentang
             if (isset($_POST['remember'])) {
                 setcookie('user_id', $row['id'], time() + (60 * 60 * 24 * 30), "/");
-                setcookie('user_key', hash('sha256', $row['email']), time() + (60 * 60 * 24 * 30), "/");
+                setcookie('user_key', hash('sha256', $row['email']), time() + (30), "/");
             }
 
             header("Location: dashboard.php");
