@@ -129,5 +129,43 @@ $result_request = mysqli_query($conn, $query_request);
         </div>
 
     </div>
+    <div class="bg-white rounded-xl shadow-lg border-2 border-yellow-400 mb-10 overflow-hidden">
+    <div class="bg-yellow-400 px-6 py-4 flex justify-between items-center">
+        <h3 class="text-gray-800 font-bold"><i class="fas fa-bell mr-2 animate-bounce"></i> Permintaan Mentor Baru</h3>
+        <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded"><?= mysqli_num_rows($result_request); ?> Perlu Diproses</span>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 text-gray-600 text-sm">
+                <tr>
+                    <th class="px-6 py-4">Nama</th>
+                    <th class="px-6 py-4">Spesialisasi</th>
+                    <th class="px-6 py-4">Berkas</th>
+                    <th class="px-6 py-4">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                <?php while($req = mysqli_fetch_assoc($result_request)) : ?>
+                <tr>
+                    <td class="px-6 py-4 font-medium"><?= $req['nama_lengkap']; ?></td>
+                    <td class="px-6 py-4 text-sm"><?= $req['spesialisasi']; ?></td>
+                    <td class="px-6 py-4">
+                        <a href="uploads/<?= $req['file_transkrip']; ?>" class="text-blue-500 underline text-xs" target="_blank">Lihat Transkrip</a>
+                    </td>
+                    <td class="px-6 py-4 flex gap-2">
+                        <a href="verifikasi_proses.php?id=<?= $req['id_user']; ?>&action=terima" 
+                           onclick="return confirm('Terima user ini sebagai Mentor?')"
+                           class="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-600">Terima</a>
+                        
+                        <a href="verifikasi_proses.php?id=<?= $req['id_user']; ?>&action=tolak" 
+                           onclick="return confirm('Tolak permintaan ini?')"
+                           class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">Tolak</a>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
