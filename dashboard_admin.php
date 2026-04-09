@@ -23,13 +23,17 @@ $result_student = mysqli_query($conn, $query_student);
 if (!$result_student) {
     die("Query Student Gagal: " . mysqli_error($conn));
 }
-// Ambil data mentor yang statusnya masih 'Pending' (ID 1)
-$query_request = "SELECT u.id_user, u.email, m.nama_lengkap, m.spesialisasi, m.file_transkrip 
+$query_request = "SELECT u.id_user, u.email, u.nama, m.spesialisasi, m.file_transkrip 
                   FROM users u
                   JOIN mentor_profiles m ON u.id_user = m.id_user
-                  WHERE m.id_status_verif = 1";
+                  WHERE u.id_status_verif = 1";
+
 $result_request = mysqli_query($conn, $query_request);
 
+// Tambahkan ini biar kalau error langsung ketahuan alasannya
+if (!$result_request) {
+    die("Error Query Request: " . mysqli_error($conn));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +80,7 @@ $result_request = mysqli_query($conn, $query_request);
                     <tbody class="divide-y divide-gray-100">
                         <?php while($row = mysqli_fetch_assoc($result_mentor)) : ?>
                         <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 font-medium"><?= $row['nama_lengkap']; ?></td>
+                            <td class="px-6 py-4 font-medium"><?= $row['nama']; ?></td>
                             <td class="px-6 py-4 text-gray-600"><?= $row['email']; ?></td>
                             <td class="px-6 py-4"><?= $row['nama_kampus'] ?? '-'; ?></td>
                             <td class="px-6 py-4"><span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"><?= $row['spesialisasi']; ?></span></td>
@@ -147,7 +151,7 @@ $result_request = mysqli_query($conn, $query_request);
             <tbody class="divide-y divide-gray-100">
                 <?php while($req = mysqli_fetch_assoc($result_request)) : ?>
                 <tr>
-                    <td class="px-6 py-4 font-medium"><?= $req['nama_lengkap']; ?></td>
+                    <td class="px-6 py-4 font-medium"><?= $req['nama']; ?></td>
                     <td class="px-6 py-4 text-sm"><?= $req['spesialisasi']; ?></td>
                     <td class="px-6 py-4">
                         <a href="uploads/<?= $req['file_transkrip']; ?>" class="text-blue-500 underline text-xs" target="_blank">Lihat Transkrip</a>

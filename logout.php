@@ -1,22 +1,15 @@
 <?php
 session_start();
-<<<<<<< HEAD
+
+// Menghapus semua data session
 session_unset();
 session_destroy();
 
-// Hapus Cookie
-setcookie('user_email', '', time() - 3600, "/");
-
-header("Location: login.php");
-=======
-
-session_unset();
-session_destroy();
-
+// Menghapus cookie login (jika ada)
 setcookie('user_id', '', time() - 3600, "/");
 setcookie('user_key', '', time() - 3600, "/");
 
-header("Location: index.php"); // atau login.php
->>>>>>> main
+// Lempar kembali ke halaman login utama
+header("Location: index.php"); 
 exit;
 ?>

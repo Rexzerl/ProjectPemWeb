@@ -54,7 +54,7 @@ if (isset($_POST['login'])) {
             // Redirect sesuai role
             if ($_SESSION['role'] === 'admin') header("Location: dashboard_admin.php");
             elseif ($_SESSION['role'] === 'mentor') header("Location: dashboard_mentor.php");
-            else header("Location: dashboard_student.php");
+            else header("Location: dashboard.php");
             exit;
         } else {
             $error = "Password salah!";
