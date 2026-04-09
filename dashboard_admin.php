@@ -23,6 +23,12 @@ $result_student = mysqli_query($conn, $query_student);
 if (!$result_student) {
     die("Query Student Gagal: " . mysqli_error($conn));
 }
+// Ambil data mentor yang statusnya masih 'Pending' (ID 1)
+$query_request = "SELECT u.id_user, u.email, m.nama_lengkap, m.spesialisasi, m.file_transkrip 
+                  FROM users u
+                  JOIN mentor_profiles m ON u.id_user = m.id_user
+                  WHERE m.id_status_verif = 1";
+$result_request = mysqli_query($conn, $query_request);
 
 ?>
 <!DOCTYPE html>

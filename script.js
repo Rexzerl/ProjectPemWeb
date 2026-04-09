@@ -1,8 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-<<<<<<< HEAD
-    // Hanya sisihkan fitur interaksi UI
-=======
->>>>>>> main
     const toggleButtons = document.querySelectorAll(".password-toggle");
     toggleButtons.forEach(button => {
         button.addEventListener("click", function () {
