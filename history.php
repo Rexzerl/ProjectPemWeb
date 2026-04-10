@@ -45,11 +45,9 @@ body {
     <?php for ($i = 0; $i < 5; $i++): ?>
     <div class="bg-white p-5 rounded-xl shadow flex items-center gap-5">
 
-        <!-- IMAGE -->
         <img src="image/wanita-belajar.jpg" 
              class="w-32 h-20 object-cover rounded-lg">
 
-        <!-- INFO -->
         <div class="flex-1">
             <h3 class="font-semibold text-[#2F5789]">
                 UI/UX Design Mentoring

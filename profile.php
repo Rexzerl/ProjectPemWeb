@@ -1,10 +1,16 @@
 <?php
 session_start();
+require 'config.php';
 
 if (!isset($_SESSION['login'])) {
     header("Location: index.php");
     exit;
 }
+
+$id = $_SESSION['user_id'];
+
+$result = mysqli_query($conn, "SELECT email FROM users WHERE id_user = $id");
+$user = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +18,7 @@ if (!isset($_SESSION['login'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profile - MentorKampus</title>
+<title>Profile - MentorCampus</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -66,9 +72,9 @@ body {
             <?= $_SESSION['nama']; ?>
         </h2>
 
-        <p class="text-sm text-gray-500">
-            <?= $_SESSION['email'] ?? 'user@email.com'; ?>
-        </p>
+        <p class="text-gray-500 text-sm">
+    <?= $user['email']; ?>
+</p>
 
         <button class="mt-4 bg-[#175BAF] text-white px-5 py-2 rounded-full text-sm">
             Edit Profile
@@ -93,8 +99,9 @@ body {
                 </div>
 
                 <div>
-                    <p class="text-gray-400">Email</p>
-                    <p><?= $_SESSION['email'] ?? 'user@email.com'; ?></p>
+                    <p class="text-gray-500 text-sm">
+                        <?= $user['email']; ?>
+                    </p>
                 </div>
 
                 <div>

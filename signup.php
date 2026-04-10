@@ -7,16 +7,21 @@ if (isset($_POST['signup'])) {
     $password = $_POST['password'];
     $confirm_password = $_POST['repeat-password'];
 
-    // Cek email sudah ada atau belum
+    $gender = $_POST['gender'];
+    $semester = $_POST['semester'];
+
     $check_email = mysqli_query($conn, "SELECT email FROM users WHERE email = '$email'");
+    
     if (mysqli_num_rows($check_email) > 0) {
         echo "<script>alert('Email sudah digunakan!');</script>";
     } else {
         if ($password === $confirm_password) {
-            // Hashing Password
+
             $password_safe = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO users (nama, email, password) VALUES ('$nama', '$email', '$password_safe')";
-            
+
+            $query = "INSERT INTO users (nama, email, password, gender, semester) 
+                      VALUES ('$nama', '$email', '$password_safe', '$gender', '$semester')";
+
             if (mysqli_query($conn, $query)) {
                 echo "<script>alert('Registrasi Berhasil! Silahkan Login.'); window.location.href='index.php';</script>";
             }
@@ -75,8 +80,40 @@ if (isset($_POST['signup'])) {
                     </div>
                 </div>
 
+                <div class="form-group">
+        <div class="grid grid-cols-2 gap-4">
+
+    <!-- GENDER -->
+   <select name="gender" required
+    class="w-full mt-1 px-4 py-2 border rounded-lg text-sm text-gray-500">
+    
+    <option value="">Gender</option>
+    <option value="Male" class="text-black">Male</option>
+    <option value="Female" class="text-black">Female</option>
+
+</select>
+
+    <!-- SEMESTER -->
+    <select name="semester" required
+    class="w-full mt-1 px-4 py-2 border rounded-lg text-sm text-gray-500">
+    
+    <option value="">Semester</option>
+
+    <?php for ($i=1; $i<=14; $i++): ?>
+        <option value="<?= $i ?>" class="text-black">
+            Semester <?= $i ?>
+        </option>
+    <?php endfor; ?>
+
+</select>
+
+</div>
+
+            <div class="mb-6"></div>
+
                 <button type="submit" name="signup" class="signup-btn btn">Sign Up</button>
             </form>
+        
 
             <div class="signup-link">
                 <p>Already have an account? <a href="index.php">Sign In</a></p>
