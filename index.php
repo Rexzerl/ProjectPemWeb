@@ -2,63 +2,93 @@
 session_start();
 require 'config.php';
 
-// 1. Cek Cookie & Auto Login
+// ================= AUTO LOGIN VIA COOKIE =================
 if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
+
     $id = $_COOKIE['user_id'];
     $key = $_COOKIE['user_key'];
 
-    // Join dengan roles untuk tahu dia siapa
-    $result = mysqli_query($conn, "SELECT u.*, r.nama_role FROM users u JOIN roles r ON u.id_role = r.id_role WHERE u.id_user = $id");
-    
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE id_user = $id");
+
     if ($result && mysqli_num_rows($result) > 0) {
+
         $row = mysqli_fetch_assoc($result);
         if ($key === hash('sha256', $row['email'])) {
+
             $_SESSION['login'] = true;
-            $_SESSION['user_id'] = $id;
+            $_SESSION['user_id'] = $row['id_user'];
             $_SESSION['nama'] = $row['nama'];
-            $_SESSION['role'] = $row['nama_role'];
-            // Nama akan diambil nanti di dashboard masing-masing dari tabel profil
+            $_SESSION['role'] = $row['role'];
+
+            // redirect sesuai role
+            if ($row['role'] == 'admin') {
+                header("Location: admin-dashboard.php");
+            } elseif ($row['role'] == 'mentor') {
+                header("Location: mentor-schedule.php");
+            } else {
+                header("Location: dashboard.php");
+            }
+            exit;
         }
     }
 }
 
-// 2. Redirect Otomatis jika sudah login
+// ================= JIKA SUDAH LOGIN =================
 if (isset($_SESSION['login'])) {
-    if ($_SESSION['role'] === 'admin') header("Location: dashboard_admin.php");
-    elseif ($_SESSION['role'] === 'mentor') header("Location: dashboard_mentor.php");
-    else header("Location: dashboard.php");
+
+    if ($_SESSION['role'] == 'admin') {
+        header("Location: admin-dashboard.php");
+    } elseif ($_SESSION['role'] == 'mentor') {
+        header("Location: mentor-schedule.php");
+    } else {
+        header("Location: dashboard.php");
+    }
     exit;
 }
 
 $error = "";
 
-// 3. Proses Login
+// ================= PROSES LOGIN =================
 if (isset($_POST['login'])) {
+
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
     $result = mysqli_query($conn, "SELECT u.*, r.nama_role FROM users u JOIN roles r ON u.id_role = r.id_role WHERE email = '$email'");
 
-    if (mysqli_num_rows($result) === 1) {
+    if ($result && mysqli_num_rows($result) === 1) {
+
         $row = mysqli_fetch_assoc($result);
+
         if (password_verify($password, $row['password'])) {
+
+            // set session
             $_SESSION['login'] = true;
             $_SESSION['user_id'] = $row['id_user'];
             $_SESSION['role'] = $row['nama_role'];
             $_SESSION['nama'] = $row['nama'];
+            $_SESSION['role'] = $row['role'];
+
+            // remember me
             if (isset($_POST['remember'])) {
                 setcookie('user_id', $row['id_user'], time() + (60 * 60 * 24 * 30), "/");
                 setcookie('user_key', hash('sha256', $row['email']), time() + (60 * 60 * 24 * 30), "/");
             }
 
-            // Redirect sesuai role
-            if ($_SESSION['role'] === 'admin') header("Location: dashboard_admin.php");
-            elseif ($_SESSION['role'] === 'mentor') header("Location: dashboard_mentor.php");
-            else header("Location: dashboard_student.php");
+            // redirect sesuai role
+            if ($row['role'] == 'admin') {
+                header("Location: admin-dashboard.php");
+            } elseif ($row['role'] == 'mentor') {
+                header("Location: mentor-schedule.php");
+            } else {
+                header("Location: dashboard.php");
+            }
             exit;
+
         } else {
             $error = "Password salah!";
         }
+
     } else {
         $error = "Email tidak ditemukan!";
     }

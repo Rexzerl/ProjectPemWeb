@@ -4,9 +4,9 @@ Nama Anggota
 - Nissa Febriyanti (240820100028)
 
 Pembagian Pengerjaan Tugas
-- Dishwar
-- Fachrisya
-- Nissa
+- Dishwar (Dashboard Admin)
+- Fachrisya (Halaman Mentor)
+- Nissa (Halaman Student)
 
 Deskripsi aplikasi : MentorCampus adalah platform peer-to-peer mentoring berbasis web yang dirancang khusus untuk ekosistem mahasiswa. Aplikasi ini bertujuan untuk menjembatani mahasiswa yang membutuhkan bantuan akademik dengan mahasiswa berprestasi yang bersedia berbagi ilmu. Berbeda dengan platform kursus umum, MentorCampus menekankan pada kedekatan relasi antar mahasiswa dari berbagai kampus di Indonesia, memungkinkan proses belajar yang lebih relevan dan santai namun tetap terukur melalui sistem verifikasi berkas akademik.
 
