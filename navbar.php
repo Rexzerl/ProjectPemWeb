@@ -15,12 +15,10 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'student';
 
 <nav class="w-full bg-white shadow-sm px-10 py-4 flex items-center justify-between fixed top-0 left-0 z-50">
 
-    <!-- LOGO -->
     <div class="flex items-center">
         <img src="image/logo.png" class="w-[170px]" alt="Logo">
     </div>
 
-    <!-- MENU -->
     <ul class="flex items-center gap-8 text-sm font-medium text-gray-600">
 
         <li>
@@ -51,16 +49,17 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'student';
             </a>
         </li>
 
+        <?php if ($role !== 'mentor'): ?>
         <li>
             <a href="profile.php"
                class="<?= ($current == 'profile.php') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500' ?>">
                Profil
             </a>
         </li>
+        <?php endif; ?>
 
     </ul>
 
-    <!-- RIGHT SIDE -->
     <div class="flex items-center gap-4">
 
         <?php if ($role === 'mentor'): ?>
@@ -75,18 +74,16 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'student';
             </a>
         <?php endif; ?>
 
-            <!-- LOGOUT -->
-    <a href="logout.php" 
-       class="bg-[#B6DCFF] text-[#175BAF] px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
-       Logout
-    </a>
+        <a href="logout.php" 
+           class="bg-[#B6DCFF] text-[#175BAF] px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
+           Logout
+        </a>
 
-    <!-- AVATAR -->
-    <div class="w-9 h-9 rounded-full bg-[#B6DCFF] flex items-center justify-center">
-        <span class="text-sm font-semibold text-[#175BAF]">
-            <?= $initial; ?>
-        </span>
-    </div>
+        <div class="w-9 h-9 rounded-full bg-[#B6DCFF] flex items-center justify-center">
+            <span class="text-sm font-semibold text-[#175BAF]">
+                <?= $initial; ?>
+            </span>
+        </div>
 
     </div>
 
