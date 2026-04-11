@@ -66,7 +66,7 @@ body { font-family: 'Lexend', sans-serif; }
     </div>
 
     <!-- BUTTON DETAIL -->
-    <a href="admin-mentor-detail.php?id=<?= $row['id_calon']; ?>"
+    <a href="admin-mentor-details.php?id=<?= $row['id_calon']; ?>"
        class="bg-[#175BAF] text-white px-4 py-2 rounded-lg text-sm hover:scale-105 transition">
         Detail
     </a>

@@ -2,43 +2,44 @@
 session_start();
 require 'config.php';
 
-// ================= AUTO LOGIN VIA COOKIE =================
+// ================= 1. AUTO LOGIN VIA COOKIE =================
 if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
-
     $id = $_COOKIE['user_id'];
     $key = $_COOKIE['user_key'];
 
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE id_user = $id");
+    // Gunakan LEFT JOIN agar tetap bisa login meskipun role bermasalah di DB
+    $query_cookie = "SELECT u.*, r.nama_role 
+                    FROM users u 
+                    LEFT JOIN roles r ON u.id_role = r.id_role 
+                    WHERE u.id_user = $id";
+    $result_cookie = mysqli_query($conn, $query_cookie);
 
-    if ($result && mysqli_num_rows($result) > 0) {
-
-        $row = mysqli_fetch_assoc($result);
+    if ($result_cookie && mysqli_num_rows($result_cookie) > 0) {
+        $row = mysqli_fetch_assoc($result_cookie);
+        
+        // Verifikasi key cookie dengan hash email
         if ($key === hash('sha256', $row['email'])) {
-
             $_SESSION['login'] = true;
             $_SESSION['user_id'] = $row['id_user'];
             $_SESSION['nama'] = $row['nama'];
-            $_SESSION['role'] = $row['role'];
+            $_SESSION['role'] = $row['nama_role'];
 
-            // redirect sesuai role
-            if ($row['role'] == 'admin') {
-                header("Location: admin-dashboard.php");
-            } elseif ($row['role'] == 'mentor') {
-                header("Location: mentor-schedule.php");
-            } else {
-                header("Location: dashboard.php");
-            }
-            exit;
+            // Redirect otomatis sesuai role
+            redirectUser($row['nama_role']);
         }
     }
 }
 
-// ================= JIKA SUDAH LOGIN =================
+// ================= 2. JIKA SUDAH LOGIN (SESSION) =================
 if (isset($_SESSION['login'])) {
+    redirectUser($_SESSION['role']);
+}
 
-    if ($_SESSION['role'] == 'admin') {
+// FUNGSI REDIRECT AGAR RAPI
+function redirectUser($role) {
+    if ($role == 'admin') {
         header("Location: admin-dashboard.php");
-    } elseif ($_SESSION['role'] == 'mentor') {
+    } elseif ($role == 'mentor') {
         header("Location: mentor-schedule.php");
     } else {
         header("Location: dashboard.php");
@@ -48,47 +49,40 @@ if (isset($_SESSION['login'])) {
 
 $error = "";
 
-// ================= PROSES LOGIN =================
+// ================= 3. PROSES LOGIN =================
 if (isset($_POST['login'])) {
-
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
-    $result = mysqli_query($conn, "SELECT u.*, r.nama_role FROM users u JOIN roles r ON u.id_role = r.id_role WHERE email = '$email'");
+    // Query diperbaiki: JOIN ke tabel roles
+    $query_login = "SELECT u.*, r.nama_role 
+                   FROM users u 
+                   LEFT JOIN roles r ON u.id_role = r.id_role 
+                   WHERE u.email = '$email'";
+    
+    $result_login = mysqli_query($conn, $query_login);
 
-    if ($result && mysqli_num_rows($result) === 1) {
-
-        $row = mysqli_fetch_assoc($result);
+    if ($result_login && mysqli_num_rows($result_login) === 1) {
+        $row = mysqli_fetch_assoc($result_login);
 
         if (password_verify($password, $row['password'])) {
-
-            // set session
+            // Set session
             $_SESSION['login'] = true;
             $_SESSION['user_id'] = $row['id_user'];
-            $_SESSION['role'] = $row['nama_role'];
             $_SESSION['nama'] = $row['nama'];
-            $_SESSION['role'] = $row['role'];
+            $_SESSION['role'] = $row['nama_role'];
 
-            // remember me
+            // Remember me
             if (isset($_POST['remember'])) {
                 setcookie('user_id', $row['id_user'], time() + (60 * 60 * 24 * 30), "/");
                 setcookie('user_key', hash('sha256', $row['email']), time() + (60 * 60 * 24 * 30), "/");
             }
 
-            // redirect sesuai role
-            if ($row['role'] == 'admin') {
-                header("Location: admin-dashboard.php");
-            } elseif ($row['role'] == 'mentor') {
-                header("Location: mentor-schedule.php");
-            } else {
-                header("Location: dashboard.php");
-            }
-            exit;
-
+            // Redirect
+            redirectUser($row['nama_role']);
         } else {
-            $error = "Password salah!";
+            $error = "Password yang Anda masukkan salah!";
         }
-
     } else {
         $error = "Email tidak ditemukan!";
     }
