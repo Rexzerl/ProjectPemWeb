@@ -58,7 +58,6 @@ $role = $_SESSION['role'] ?? 'guest';
             </a>
         </li>
 
-        <!-- 🔥 KHUSUS MENTOR -->
         <?php if ($role == 'mentor'): ?>
 
         <li>
