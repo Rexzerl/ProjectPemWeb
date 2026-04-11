@@ -29,9 +29,11 @@ if (isset($_POST['tambah'])) {
     $tanggal = $_POST['tanggal'];
     $jam = $_POST['jam'];
 
+    $harga = $_POST['harga'];
+
     mysqli_query($conn, "
-        INSERT INTO mentor_schedule (id_mentor, tanggal, jam, status)
-        VALUES ('$id_mentor', '$tanggal', '$jam', 'available')
+       INSERT INTO mentor_schedule (id_mentor, tanggal, jam, harga, status)
+       VALUES ('$id_mentor', '$tanggal', '$jam', '$harga', 'available')
     ");
 
     header("Location: mentor-schedule.php");
@@ -102,39 +104,57 @@ body {
 <div class="max-w-4xl mx-auto space-y-8">
 
     <!-- FORM TAMBAH -->
-    <div class="bg-white p-6 rounded-2xl shadow">
-        <h2 class="text-lg font-semibold text-[#175BAF] mb-4">
-            Add New Schedule
-        </h2>
+    <div class="bg-white p-6 rounded-2xl shadow max-w-2xl mx-auto">
 
-        <form method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+    <h2 class="text-lg font-semibold text-[#175BAF] mb-4 text-center">
+        Add New Schedule
+    </h2>
 
+    <form method="POST" class="space-y-5">
+
+        <!-- INPUT GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <!-- DATE -->
             <div>
                 <label class="text-sm text-gray-600">Date</label>
                 <input type="date" name="tanggal" required
                 class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#175BAF]">
             </div>
 
+            <!-- TIME -->
             <div>
                 <label class="text-sm text-gray-600">Time</label>
                 <input type="time" name="jam" required
                 class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#175BAF]">
             </div>
 
-            <button type="submit" name="tambah"
-            class="bg-[#175BAF] text-white py-2 rounded-lg hover:scale-105 transition">
-            Add
-            </button>
+            <!-- PRICE -->
+            <div>
+                <label class="text-sm text-gray-600">Price (Rp)</label>
+                <input type="number" name="harga" required
+                class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#175BAF]">
+            </div>
 
-        </form>
-    </div>
+        </div>
+
+        <!-- BUTTON -->
+        <button type="submit" name="tambah"
+        class="w-full bg-[#175BAF] text-white py-2 rounded-lg hover:scale-105 transition">
+            + Add Schedule
+        </button>
+
+    </form>
+
+</div>
 
     <!-- LIST JADWAL -->
-    <div class="bg-white p-6 rounded-2xl shadow">
-        <h2 class="text-lg font-semibold mb-4">
-            Your Schedule
-        </h2>
+    <div class="bg-white p-6 rounded-2xl shadow max-w-2xl mx-auto mt-8">
 
+    <h2 class="text-lg font-semibold mb-4 text-center">
+        Your Schedule
+    </h2>
+    
         <?php if (mysqli_num_rows($data) > 0): ?>
 
             <div class="space-y-4">

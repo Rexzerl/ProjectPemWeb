@@ -99,12 +99,16 @@ $search = $_GET['search'] ?? '';
 
 // QUERY DATABASE
 $query = "
-SELECT mp.*, u.nama, u.semester, k.nama_kampus
+SELECT mp.*, u.nama, u.semester, u.foto_profil, k.nama_kampus,
+       MIN(ms.harga) as harga
 FROM mentor_profiles mp
 JOIN users u ON mp.id_user = u.id_user
 JOIN kampus k ON mp.id_kampus = k.id_kampus
+LEFT JOIN mentor_schedule ms ON mp.id_mentor = ms.id_mentor
 WHERE 1
 ";
+
+$query .= " GROUP BY mp.id_mentor";
 
 // FILTER SEARCH
 if (!empty($search)) {
@@ -127,8 +131,18 @@ $result = mysqli_query($conn, $query);
 <div class="bg-white rounded-xl shadow p-5 flex gap-5 items-center hover:shadow-lg transition relative">
 
     <!-- FOTO -->
-    <img src="image/wanita-belajar.jpg" 
+    <?php if (!empty($mentor['foto_profil']) && $mentor['foto_profil'] != 'default.jpg'): ?>
+
+    <img src="<?= $mentor['foto_profil'] ?>" 
          class="w-32 h-32 object-cover rounded-full">
+
+<?php else: ?>
+
+    <div class="w-32 h-32 rounded-full bg-[#B6DCFF] flex items-center justify-center text-3xl font-bold text-[#175BAF]">
+        <?= strtoupper(substr($mentor['nama'], 0, 1)); ?>
+    </div>
+
+<?php endif; ?>
 
     <!-- INFO -->
     <div class="flex-1 pb-10">
@@ -140,6 +154,11 @@ $result = mysqli_query($conn, $query);
         <h3 class="font-semibold text-lg">
             <?= $mentor['nama']; ?>
         </h3>
+
+        <p class="text-[#175BAF] font-semibold mt-2">
+            Rp <?= number_format($mentor['harga'] ?? 0, 0, ',', '.') ?>
+            <span class="text-xs text-gray-400">/session</span>
+        </p>
 
         <div class="text-sm text-gray-500 mt-1">
             <?= $mentor['jurusan']; ?> • <?= $mentor['spesialisasi']; ?>
@@ -157,12 +176,12 @@ $result = mysqli_query($conn, $query);
     <!-- BUTTONS -->
     <div class="absolute bottom-4 right-5 flex gap-2">
 
-        <a href="mentor-profile.php?id=<?= $mentor['id_mentor']; ?>"
+        <a href="booking.php?id_mentor=<?= $mentor['id_mentor']; ?>"
            class="bg-[#175BAF] text-white text-sm px-4 py-1.5 rounded-lg hover:scale-105 transition">
             Book
         </a>
 
-        <a href="mentor-profile.php?id=<?= $mentor['id_mentor']; ?>"
+        <a href="mentor-detail.php?id=<?= $mentor['id_mentor']; ?>"
            class="bg-[#175BAF] text-white text-sm px-4 py-1.5 rounded-lg hover:scale-105 transition">
             View Profile
         </a>
