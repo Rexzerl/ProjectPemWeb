@@ -3,13 +3,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// ambil halaman aktif
+// Ambil nama file sekarang
 $current = basename($_SERVER['PHP_SELF']);
 
-// ambil inisial nama
+// Ambil inisial nama
 $initial = isset($_SESSION['nama']) ? strtoupper(substr($_SESSION['nama'], 0, 1)) : 'U';
 
-// ambil role
+// Ambil role
 $role = $_SESSION['role'] ?? 'guest';
 ?>
 
@@ -58,7 +58,7 @@ $role = $_SESSION['role'] ?? 'guest';
             </a>
         </li>
 
-        <!-- 🔥 KHUSUS MENTOR -->
+        <!-- 🔥 TAMBAHAN KHUSUS MENTOR -->
         <?php if ($role == 'mentor'): ?>
 
         <li>
@@ -89,7 +89,7 @@ $role = $_SESSION['role'] ?? 'guest';
     <!-- RIGHT SIDE -->
     <div class="flex items-center gap-4">
 
-        <!-- ❗ HANYA STUDENT YANG LIHAT -->
+        <!-- ❗ HANYA MUNCUL KALAU BUKAN MENTOR -->
         <?php if ($role != 'mentor'): ?>
         <a href="mentor-register.php" 
            class="bg-[#175BAF] text-white px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">

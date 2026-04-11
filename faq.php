@@ -47,7 +47,7 @@ body {
 
         <?php 
         $faqs = [
-            ["Apa itu MentorKampus?", "MentorKampus adalah platform pembelajaran peer-to-peer yang menghubungkan mahasiswa dengan mentor dari sesama mahasiswa."],
+            ["Apa itu MentorCampus?", "MentorCampus adalah platform pembelajaran peer-to-peer yang menghubungkan mahasiswa dengan mentor dari sesama mahasiswa."],
             ["Bagaimana cara mendaftar?", "Anda dapat mendaftar melalui halaman Sign Up dengan mengisi data diri yang diperlukan."],
             ["Apakah mentor berbayar?", "Beberapa mentor gratis, namun sebagian lainnya memiliki biaya yang tetap terjangkau."],
             ["Apakah bisa memilih mentor?", "Ya, Anda dapat memilih mentor sesuai kebutuhan dan preferensi Anda."],
