@@ -58,7 +58,7 @@ $role = $_SESSION['role'] ?? 'guest';
             </a>
         </li>
 
-        <!-- 🔥 TAMBAHAN KHUSUS MENTOR -->
+        <!-- KHUSUS MENTOR -->
         <?php if ($role == 'mentor'): ?>
 
         <li>
@@ -89,7 +89,7 @@ $role = $_SESSION['role'] ?? 'guest';
     <!-- RIGHT SIDE -->
     <div class="flex items-center gap-4">
 
-        <!-- ❗ HANYA MUNCUL KALAU BUKAN MENTOR -->
+        <!-- HANYA MUNCUL KALAU BUKAN MENTOR -->
         <?php if ($role != 'mentor'): ?>
         <a href="mentor-register.php" 
            class="bg-[#175BAF] text-white px-4 py-2 rounded-full text-sm font-medium hover:scale-105 transition">
