@@ -34,7 +34,6 @@ if (isset($_POST['update_profile'])) {
         $ext = pathinfo($_FILES['foto_profil']['name'], PATHINFO_EXTENSION);
         $newName = "uploads/profile_" . time() . "." . $ext;
         
-        // Pastikan folder uploads ada
         if (!is_dir('uploads')) {
             mkdir('uploads', 0777, true);
         }
@@ -94,24 +93,31 @@ if ($role == 'mentor' && $id_mentor) {
     $ongoing = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM booking WHERE id_student = $id AND status='ongoing'"))['total'] ?? 0;
 }
 
-// 6. QUERY DAFTAR SESI (ONGOING, COMPLETED, CANCELLED)
-$where = ($role == 'student') ? "b.id_student = $id" : "ms.id_mentor = $id_mentor";
+// 6. QUERY DAFTAR SESI (DENGAN DOUBLE JOIN USER)
+if ($role == 'mentee') {
+    $where = "b.id_student = " . (int)$id;
+} else {
+    $current_mentor_id = (int)$id_mentor;
+    $where = "ms.id_mentor = $current_mentor_id";
+}
 
-// Query dasar untuk mengambil detail booking
 $baseQuery = "
     SELECT b.*, 
-           u.nama as mentor_nama,
-           u.foto_profil,
-           u.semester,
-           mp.spesialisasi,
-           mp.jurusan,
-           k.nama_kampus,
+           u_mentor.nama as mentor_nama,
+           u_student.nama as student_nama,
+           u_mentor.foto_profil as mentor_foto,
+           u_student.foto_profil as student_foto,
+           u_student.semester as student_semester,
            ms.tanggal,
-           ms.jam
+           ms.jam,
+           k.nama_kampus,
+           mp.spesialisasi,
+           mp.jurusan
     FROM booking b
     JOIN mentor_schedule ms ON b.id_schedule = ms.id_schedule
     JOIN mentor_profiles mp ON ms.id_mentor = mp.id_mentor
-    JOIN users u ON mp.id_user = u.id_user
+    JOIN users u_mentor ON mp.id_user = u_mentor.id_user 
+    JOIN users u_student ON b.id_student = u_student.id_user
     JOIN kampus k ON mp.id_kampus = k.id_kampus
     WHERE $where
 ";
@@ -119,8 +125,6 @@ $baseQuery = "
 $ongoingList = mysqli_query($conn, "$baseQuery AND b.status = 'ongoing' ORDER BY ms.tanggal ASC");
 $completedList = mysqli_query($conn, "$baseQuery AND b.status = 'completed' ORDER BY ms.tanggal DESC, ms.jam DESC");
 $cancelledList = mysqli_query($conn, "$baseQuery AND b.status = 'cancelled' ORDER BY ms.tanggal DESC, ms.jam DESC");
-
-$fotoUser = !empty($user['foto_profil']) ? $user['foto_profil'] : "image/default.jpg";
 ?>
 
 <!DOCTYPE html>
@@ -225,14 +229,20 @@ $fotoUser = !empty($user['foto_profil']) ? $user['foto_profil'] : "image/default
             <h3 class="font-bold text-[#2F5789] mb-4">Ongoing Sessions</h3>
             <?php if (mysqli_num_rows($ongoingList) > 0): ?>
                 <div class="space-y-4">
-                <?php while($b = mysqli_fetch_assoc($ongoingList)): ?>
+                <?php while($b = mysqli_fetch_assoc($ongoingList)): 
+                    // Logika Dinamis Nama & Foto
+                    $isMentee = ($role == 'mentee');
+                    $displayName = $isMentee ? $b['mentor_nama'] : $b['student_nama'];
+                    $displayFoto = $isMentee ? $b['mentor_foto'] : $b['student_foto'];
+                    $displaySub = $isMentee ? $b['nama_kampus'] . " • " . $b['jurusan'] : "Semester " . $b['student_semester'] . " • Student";
+                ?>
                     <div class="border border-blue-100 p-4 rounded-xl flex flex-wrap md:flex-nowrap gap-4 items-center bg-blue-50/30">
-                        <img src="<?= !empty($b['foto_profil']) ? $b['foto_profil'] : 'image/default.jpg'; ?>" 
+                        <img src="<?= !empty($displayFoto) ? $displayFoto : 'image/default.jpg'; ?>" 
                              class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm">
                         
                         <div class="flex-1 min-w-[200px]">
-                            <p class="font-bold text-gray-800 text-base"><?= $b['mentor_nama']; ?></p>
-                            <p class="text-xs text-blue-600 font-medium"><?= $b['nama_kampus']; ?> • <?= $b['jurusan']; ?></p>
+                            <p class="font-bold text-gray-800 text-base"><?= $displayName; ?></p>
+                            <p class="text-xs text-blue-600 font-medium"><?= $displaySub; ?></p>
                             <div class="flex items-center gap-2 mt-1">
                                 <span class="text-[11px] bg-white px-2 py-0.5 rounded border text-gray-500">
                                     <?= date('d M Y', strtotime($b['tanggal'])) ?>
@@ -268,13 +278,17 @@ $fotoUser = !empty($user['foto_profil']) ? $user['foto_profil'] : "image/default
             <h3 class="font-bold text-[#2F5789] mb-4">Completed Sessions History</h3>
             <?php if (mysqli_num_rows($completedList) > 0): ?>
                 <div class="space-y-3">
-                    <?php while($b = mysqli_fetch_assoc($completedList)): ?>
+                    <?php while($b = mysqli_fetch_assoc($completedList)): 
+                        $isMentee = ($role == 'mentee');
+                        $displayName = $isMentee ? $b['mentor_nama'] : $b['student_nama'];
+                        $displayFoto = $isMentee ? $b['mentor_foto'] : $b['student_foto'];
+                    ?>
                         <div class="border p-4 rounded-xl flex gap-4 items-center hover:bg-gray-50 transition">
-                            <img src="<?= !empty($b['foto_profil']) ? $b['foto_profil'] : 'image/default.jpg'; ?>" 
+                            <img src="<?= !empty($displayFoto) ? $displayFoto : 'image/default.jpg'; ?>" 
                                  class="w-12 h-12 rounded-full object-cover grayscale-[0.5]">
                             
                             <div class="flex-1">
-                                <p class="font-bold text-gray-700 text-sm"><?= $b['mentor_nama']; ?></p>
+                                <p class="font-bold text-gray-700 text-sm"><?= $displayName; ?></p>
                                 <p class="text-xs text-gray-500"><?= $b['nama_kampus']; ?> • <?= date('d M Y', strtotime($b['tanggal'])) ?></p>
                             </div>
 
@@ -297,13 +311,17 @@ $fotoUser = !empty($user['foto_profil']) ? $user['foto_profil'] : "image/default
             </h3>
             <?php if (mysqli_num_rows($cancelledList) > 0): ?>
                 <div class="space-y-3">
-                    <?php while($b = mysqli_fetch_assoc($cancelledList)): ?>
+                    <?php while($b = mysqli_fetch_assoc($cancelledList)): 
+                        $isMentee = ($role == 'mentee');
+                        $displayName = $isMentee ? $b['mentor_nama'] : $b['student_nama'];
+                        $displayFoto = $isMentee ? $b['mentor_foto'] : $b['student_foto'];
+                    ?>
                         <div class="border border-red-50 p-4 rounded-xl flex gap-4 items-center opacity-75 bg-red-50/20">
-                            <img src="<?= !empty($b['foto_profil']) ? $b['foto_profil'] : 'image/default.jpg'; ?>" 
+                            <img src="<?= !empty($displayFoto) ? $displayFoto : 'image/default.jpg'; ?>" 
                                  class="w-12 h-12 rounded-full object-cover grayscale">
                             
                             <div class="flex-1">
-                                <p class="font-bold text-gray-600 text-sm"><?= $b['mentor_nama']; ?></p>
+                                <p class="font-bold text-gray-600 text-sm"><?= $displayName; ?></p>
                                 <p class="text-[11px] text-gray-400"><?= date('d M Y', strtotime($b['tanggal'])) ?> • <?= $b['jam'] ?></p>
                             </div>
 

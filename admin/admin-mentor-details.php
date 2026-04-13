@@ -62,11 +62,11 @@ if (isset($_GET['action'])) {
 
         mysqli_query($conn, "
             UPDATE users 
-            SET role='mentor' 
+            SET id_role =2, role='mentor' 
             WHERE id_user = {$data['id_user']}
         ") or die(mysqli_error($conn));
 
-        header("Location: admin-mentor-detail.php?id=$id_calon");
+        header("Location: admin-mentor-details.php?id=$id_calon");
         exit;
     }
 
@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
             WHERE id_calon = $id_calon
         ") or die(mysqli_error($conn));
 
-        header("Location: admin-mentor-detail.php?id=$id_calon");
+        header("Location: admin-mentor-details.php?id=$id_calon");
         exit;
     }
 }
