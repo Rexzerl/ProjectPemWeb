@@ -2,7 +2,7 @@
 session_start();
 require 'config.php';
 
-// ================= AUTO LOGIN VIA COOKIE =================
+//  AUTO LOGIN VIA COOKIE 
 if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
 
     $id = $_COOKIE['user_id'];
@@ -34,7 +34,7 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
     }
 }
 
-// ================= JIKA SUDAH LOGIN =================
+//  JIKA SUDAH LOGIN 
 if (isset($_SESSION['login'])) {
 
     if ($_SESSION['role'] == 'admin') {
@@ -49,7 +49,7 @@ if (isset($_SESSION['login'])) {
 
 $error = "";
 
-// ================= PROSES LOGIN =================
+//  PROSES LOGIN 
 if (isset($_POST['login'])) {
 
     $email = mysqli_real_escape_string($conn, $_POST['email']);
