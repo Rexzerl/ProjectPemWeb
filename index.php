@@ -2,59 +2,93 @@
 session_start();
 require 'config.php';
 
-$result = null; // inisialisasi dulu
-
+//  AUTO LOGIN VIA COOKIE 
 if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
+
     $id = $_COOKIE['user_id'];
     $key = $_COOKIE['user_key'];
 
-    $result = mysqli_query($conn, "SELECT nama, email FROM users WHERE id_user = $id");
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE id_user = $id");
 
     if ($result && mysqli_num_rows($result) > 0) {
+
         $row = mysqli_fetch_assoc($result);
 
         if ($key === hash('sha256', $row['email'])) {
+
             $_SESSION['login'] = true;
-            $_SESSION['user_id'] = $id_user;
+            $_SESSION['user_id'] = $row['id_user'];
             $_SESSION['nama'] = $row['nama'];
+            $_SESSION['role'] = $row['role'];
+
+            // redirect sesuai role
+            if ($row['role'] == 'admin') {
+                header("Location: admin-dashboard.php");
+            } elseif ($row['role'] == 'mentor') {
+                header("Location: mentor-schedule.php");
+            } else {
+                header("Location: dashboard.php");
+            }
+            exit;
         }
     }
 }
 
-// 2. Jika sudah login, langsung lempar ke dashboard
+//  JIKA SUDAH LOGIN 
 if (isset($_SESSION['login'])) {
-    header("Location: dashboard.php");
+
+    if ($_SESSION['role'] == 'admin') {
+        header("Location: admin-dashboard.php");
+    } elseif ($_SESSION['role'] == 'mentor') {
+        header("Location: mentor-schedule.php");
+    } else {
+        header("Location: dashboard.php");
+    }
     exit;
 }
 
 $error = "";
 
-// 3. Proses Login ketika tombol 'login' diklik
+//  PROSES LOGIN 
 if (isset($_POST['login'])) {
+
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
     $result = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
 
-    if (mysqli_num_rows($result) === 1) {
+    if ($result && mysqli_num_rows($result) === 1) {
+
         $row = mysqli_fetch_assoc($result);
+
         if (password_verify($password, $row['password'])) {
-            // Set Session
+
+            // set session
             $_SESSION['login'] = true;
             $_SESSION['user_id'] = $row['id_user'];
             $_SESSION['nama'] = $row['nama'];
+            $_SESSION['role'] = $row['role'];
 
-            // Set Cookie jika Remember Me dicentang
+            // remember me
             if (isset($_POST['remember'])) {
-                setcookie('user_id', $row['id'], time() + (60 * 60 * 24 * 30), "/");
-                setcookie('user_key', hash('sha256', $row['email']), time() + (30), "/");
+                setcookie('user_id', $row['id_user'], time() + (60 * 60 * 24 * 30), "/");
+                setcookie('user_key', hash('sha256', $row['email']), time() + (60 * 60 * 24 * 30), "/");
             }
 
-            header("Location: dashboard.php");
+            // redirect sesuai role
+            if ($row['role'] == 'admin') {
+                header("Location: admin-dashboard.php");
+            } elseif ($row['role'] == 'mentor') {
+                header("Location: mentor-schedule.php");
+            } else {
+                header("Location: dashboard.php");
+            }
             exit;
+
         } else {
             $error = "Password yang Anda masukkan salah!";
         }
+
     } else {
         $error = "Email tidak ditemukan!";
     }
