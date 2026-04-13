@@ -35,7 +35,7 @@ if (!$data) {
     exit;
 }
 
-// ================= ACTION =================
+// ACTION 
 if (isset($_GET['action'])) {
 
     $action = $_GET['action'];

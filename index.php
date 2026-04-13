@@ -2,7 +2,7 @@
 session_start();
 require 'config.php';
 
-// ================= 1. AUTO LOGIN VIA COOKIE =================
+//  AUTO LOGIN VIA COOKIE 
 if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
     $id = $_COOKIE['user_id'];
     $key = $_COOKIE['user_key'];
@@ -30,7 +30,7 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_key'])) {
     }
 }
 
-// ================= 2. JIKA SUDAH LOGIN (SESSION) =================
+//  JIKA SUDAH LOGIN 
 if (isset($_SESSION['login'])) {
     redirectUser($_SESSION['role']);
 }
@@ -49,7 +49,7 @@ function redirectUser($role) {
 
 $error = "";
 
-// ================= 3. PROSES LOGIN =================
+//  PROSES LOGIN 
 if (isset($_POST['login'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
