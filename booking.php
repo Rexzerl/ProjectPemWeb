@@ -145,7 +145,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'book') {
                 Lihat Progres di Profil
             </a>
             
-            <a href="course.php" class="text-gray-400 hover:text-[#175BAF] font-medium transition py-2 underline decoration-dotted">
+            <a href="courses.php" class="text-gray-400 hover:text-[#175BAF] font-medium transition py-2 underline decoration-dotted">
                 ← Kembali ke Daftar Mentor
             </a>
         </div>
