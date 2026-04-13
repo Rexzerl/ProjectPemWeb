@@ -70,7 +70,6 @@ $role = $_SESSION['role'] ?? 'guest';
         <li>
             <a href="profile.php" class="<?= ($current == 'profile.php') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500' ?>">Profil</a>
         </li>
-        <?php endif; ?>
 
         <?php if ($role == 'mentor'): ?>
         <li><a href="mentor-schedule.php" class="<?= ($current == 'mentor-schedule.php') ? 'text-blue-500 font-semibold' : 'hover:text-blue-500' ?>">Schedule</a></li>

@@ -1,9 +1,11 @@
 <?php
-$host = "localhost:3308";
+$host = "localhost"; // Hapus :3308 di sini
 $user = "root";
 $pass = ""; 
 $db   = "mentor_kampus"; 
-$conn = mysqli_connect($host, $user, $pass, $db, 3308);
+
+// Hapus angka 3308 di akhir mysqli_connect
+$conn = mysqli_connect($host, $user, $pass, $db);
 
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
